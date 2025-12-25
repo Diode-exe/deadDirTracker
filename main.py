@@ -14,7 +14,8 @@ class deadDirScanCls():
                     formatted_human_time = human_time.strftime("%Y-%m-%d %H:%M:%S %z")
                     data.append((path, mtime, human_time.isoformat()))
                     # print(data)
-                except (PermissionError, FileNotFoundError, OSError):
+                except (PermissionError, FileNotFoundError, OSError) as e:
+                    print(f"Error: {e}")
                     continue
         data.sort(key=lambda item: item[1])
         print(data)
@@ -22,5 +23,6 @@ class deadDirScanCls():
             for path, mtime, human_time_iso in data:
                 f.write(f"{path} {mtime} {human_time_iso}\n")
 
-root = r"C:\\Users\\Rohan\\Documents\\python"
+# root = r"C:\\Users\\Rohan\\Documents\\python"
+root = input("Directory to scan? ")
 deadDirScanCls.scan(root)
