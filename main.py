@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 import tkinter as tk
-from tkinter import simpledialog
+from tkinter import simpledialog, messagebox
 
 root = tk.Tk()
 root.title("deadDirTracker")
@@ -25,10 +25,12 @@ class deadDirScanCls():
                     continue
         data.sort(key=lambda item: item[1])
         print(data)
-        with open("deadDir.txt", "w", encoding="utf-8") as f:
+        fileToWrite = "deadDir.txt"
+        with open(f"{fileToWrite}", "w", encoding="utf-8") as f:
             for path, mtime, human_time_iso in data:
                 f.write(f"{path} {mtime} {human_time_iso}\n")
-        print("Saved to file deadDir.txt")
+        print(f"Saved to file {fileToWrite}")
+        messagebox.showinfo("Success", f"Saved to file {fileToWrite}")
 
     def askAndScan():
         root = simpledialog.askstring("Directory to scan?", "Directory to scan?")
