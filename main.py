@@ -1,5 +1,11 @@
 import os
 from datetime import datetime
+import tkinter as tk
+from tkinter import simpledialog
+
+root = tk.Tk()
+root.title("deadDirTracker")
+root.geometry("400x50")
 
 class deadDirScanCls():
     def scan(root):
@@ -22,7 +28,18 @@ class deadDirScanCls():
         with open("deadDir.txt", "w", encoding="utf-8") as f:
             for path, mtime, human_time_iso in data:
                 f.write(f"{path} {mtime} {human_time_iso}\n")
+        print("Saved to file deadDir.txt")
+
+    def askAndScan():
+        root = simpledialog.askstring("Directory to scan?", "Directory to scan?")
+        deadDirScanCls.scan(root)
+
+askAndScanBtn = tk.Button(
+                root, text="Scan directories",
+                command=deadDirScanCls.askAndScan)
+askAndScanBtn.pack()
 
 # root = r"C:\\Users\\Rohan\\Documents\\python"
-root = input("Directory to scan? ")
-deadDirScanCls.scan(root)
+# root = input("Directory to scan? ")
+
+root.mainloop()
